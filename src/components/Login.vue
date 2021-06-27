@@ -1,107 +1,70 @@
 <template>
-	<div>
-		<h1>Veuillez vous connecter</h1>
-		<form @submit.prevent="postLogin()">
-			<label for="email">Email</label><br />
-			<input
-				type="email"
-				name="email"
-				id="email"
-				v-model="email"
-				required
-			/><br />
-			<label for="password">Mot de passe</label><br />
-			<input
-				type="password"
-				name="password"
-				id="password"
-				v-model="password"
-				required
-			/><br />
-			<p class="unknown">{{ incorrect }}</p>
-			<button type="submit" class="btn">Se connecter</button>
-		</form>
-	</div>
+  <div>
+    <b-card class="mt-3" header="Connexion">
+      <b-link href="/register" style="float:right;margin-top:-60px;">Créer un compte</b-link>
+      <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+      <b-form-group
+        id="input-group-1"
+        label="Identifiant:"
+        label-for="input-1"
+        description="Veuillez saisir un identifiant unique"
+      >
+        <b-form-input
+          id="input-1"
+          v-model="form.username"
+          type="email"
+          placeholder="Entrer votre identifiant"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="Mot de passe" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          type="password"
+          v-model="form.password"
+          placeholder="Entrer votre Nom"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-button type="submit" variant="primary">Connexion</b-button>
+      <b-button type="reset" variant="danger">Reset</b-button>
+    </b-form>
+    </b-card>
+  </div>
 </template>
 
 <script>
-	import { apiCall } from "../axios";
-	export default {
-		name: "Login",
-		data() {
-			return {
-				email: "",
-				password: "",
-				incorrect: "",
-			};
-		},
-		methods: {
-			isLogged() {
-				if (localStorage.getItem("userInfo") !== null) {
-					this.$router.push("/home");
-				}
-			},
-			postLogin() {
-				let regexEmail = /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,6}$/;
-				if (regexEmail.test(this.email)) {
-					apiCall
-						.post("/login/", {
-							email: this.email,
-							password: this.password,
-						})
-						.then((resp) => {
-							console.log(resp.data);
-							console.log(resp.status);
-							if (resp.status === 200) {
-								localStorage.setItem("userInfo", JSON.stringify(resp.data));
-								window.location = "http://localhost:8080/home";
-							} else if (resp.status === 404) {
-								console.log(resp);
-							}
-						})
-						.catch((error) => {
-							console.log(error);
-							this.incorrect = "Email inconnu ou mot de passe incorrect";
-						});
-				} else {
-					console.log("mot de passe ou mail invalide");
-				}
-			},
-		},
-		mounted() {
-			this.isLogged();
-		},
-	};
+export default {
+  name: 'Login',
+  data() {
+      return {
+        form: {
+          username: '',
+          password: '',
+        },
+        roles: [{ text: 'Selectionner', value: null }, 'Administrateur', 'Employé'],
+        show: true
+      }
+    },
+  methods: {
+    onSubmit(e) {
+      e.preventDefault()
+
+      const credential = {
+        // id: Math.floor(Math.random() * 100000),
+        username: this.username,
+        password: this.password
+      }
+
+      this.$emit('user-login', credential)
+
+      this.username = ''
+      this.password = ''
+    },
+  },
+}
 </script>
 
-<style scoped lang="scss">
-	$primary: #7a49a5;
-	h1 {
-		margin-bottom: 30px;
-	}
-	input {
-		font-size: large;
-	}
-	.unknown {
-		color: $primary;
-		margin-bottom: 10px;
-	}
-	.btn {
-		background: $primary;
-		border: none;
-		font-size: large;
-		cursor: pointer;
-	}
-	input,
-	.btn {
-		width: 300px;
-		height: 50px;
-		margin-bottom: 20px;
-		@media (min-width: 550px) {
-			width: 500px;
-		}
-		@media (min-width: 1024px) {
-			width: 700px;
-		}
-	}
-</style>
+
