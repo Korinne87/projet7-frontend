@@ -2,11 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../components/Login.vue'
 import Create from '../components/Users/Create.vue'
-import Profile from '../components/Users/Profile.vue'
+import Profile from '../components/Profile.vue'
 import Posts from '../components/Posts/lists.vue'
 import Home from '../components/Home.vue'
 import Multimedia from '../components/Multimedia.vue'
 import Texte from '../components/Texte.vue'
+import Users from '../components/Users.vue'
+
 
 
 
@@ -34,7 +36,7 @@ const routes = [
   },
   {
     path: '/profile',
-    name: 'Profil',
+    name: 'Profile',
     component: Profile
   },
   {
@@ -51,6 +53,11 @@ const routes = [
     path: '/texte',
     name: 'texte',
     component: Texte
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: Users
   },
 
 
