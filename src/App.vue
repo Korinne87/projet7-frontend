@@ -2,7 +2,6 @@
 	<div class="container">
 		<Header 
 		:title="Groupomania"
-		@toggle-show-login="toggleShowLogin"
 		:showLogin="showLogin"
 		/>
 		<router-view :showLogin="showLogin" />
@@ -22,11 +21,6 @@ export default {
     return {
       showLogin: false,
     }
-  },
-  methods: {
-    toggleShowLogin() {
-      this.showLogin = !this.showLogin
-    },
   },
 }
 </script>
