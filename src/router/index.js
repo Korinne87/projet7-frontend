@@ -8,7 +8,7 @@ import Home from '../components/Home.vue'
 import Multimedia from '../components/Multimedia.vue'
 import Texte from '../components/Texte.vue'
 import Users from '../components/Users.vue'
-
+import Comment from '../components/comment.vue'
 
 
 
@@ -59,7 +59,11 @@ const routes = [
     name: 'users',
     component: Users
   },
-
+  {
+    path: '/comment',
+    name: 'comment',
+    component: Comment
+  },
 
   
 ]

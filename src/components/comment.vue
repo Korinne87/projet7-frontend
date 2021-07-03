@@ -1,23 +1,21 @@
 <template>
   <div>
     <NavBar  :isAdmin="isAdmin" :user="user" />
-    <b-card header="Forum Texte"></b-card>
+    <b-card header="commentaires"></b-card>
   
   <b-card>
     <b-avatar src="https://placekitten.com/300/300"></b-avatar>  
         <b-card-text>
-      bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+        commentaire 1
     </b-card-text>
-    <b-button href="/comment" variant="primary">Commenter</b-button>
   </b-card>
 
 
   <b-card>
     <b-avatar src="https://placekitten.com/300/300"></b-avatar>  
         <b-card-text>
-      ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+      commentaire 2
     </b-card-text>
-    <b-button href="/comment" variant="primary">Commenter</b-button>
   </b-card>
 </div>
 </template>
